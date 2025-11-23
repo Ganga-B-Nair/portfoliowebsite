@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hi, I'm Ganga B Nair and I love solving Crosswords !</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Zen+Loop&display=swap" rel="stylesheet">
+  
+  <!-- CSS File -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <h1>Ganga B Nair</h1>
+      
+    </header>
+
+    <div class="crossword-frame">
+      <div class="crossword" id="crossword">
+
+        <!-- ROW 1 -->
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell clickable"><span class="char">A</span></div>
+        <div class="cell"></div>
+        <div class="cell clickable"><span class="char">C</span></div>
+        <div class="cell empty"></div>
+        <!-- D is clickable and has hover -->
+        <div class="cell clickable hover-cell"><span class="char">D</span></div>
+        <div class="cell"></div>
+        <div class="cell empty"></div>
+        <div class="cell clickable"><span class="char">F</span></div>
+        <div class="cell"></div>
+
+        <!-- ROW 2 -->
+        <div class="cell"></div>
+        <div class="cell clickable"><span class="char">G</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell empty"></div>
+        <div class="cell"></div>
+        <div class="cell clickable"><span class="char">I</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell empty"></div>
+
+        <!-- ROW 3 -->
+        <div class="cell clickable"><span class="char">L</span></div>
+        <div class="cell"></div>
+        <div class="cell empty"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell empty"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell clickable"><span class="char">R</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Hover popup for D -->
+  <div id="hoverPopup" class="hover-popup" role="tooltip" aria-hidden="true">
+     <strong>Data Structures</strong>
+     <p>Here’s my LeetCode profile:</p>
+     <a id="leetcodeLink" target="_blank" rel="noopener">My LeetCode</a>
+  </div>
+
+  <!-- Modal -->
+  <div id="overlay" class="overlay" aria-hidden="true">
+    <div class="dialog" role="document">
+      <header>
+        <h2 id="dialogTitle" contenteditable="true">Title (edit me)</h2>
+        <button id="closeBtn" class="close-btn" aria-label="Close modal">&times;</button>
+      </header>
+      <div id="dialogContent"></div>
+    </div>
+  </div>
+
+  <!-- JS EMBEDDED HERE -->
+  <script>
+    const LINKS = {
+      github: "https://github.com/Ganga-B-Nair",
+      leetcode: "https://leetcode.com/u/GangaBNair/",
+      catalyst: "https://www.instagram.com/catalystiedc/",
+      instagram: "https://www.instagram.com/ganga.b.nair/",
+      linkedin: "https://www.linkedin.com/in/ganga-b-nair-47941a235",
+      letterboxd: "https://boxd.it/gLQ23e",
+      substack: "https://gangabnair.substack.com/"
+    };
+
+    const overlay = document.getElementById("overlay");
+    const dialogTitle = document.getElementById("dialogTitle");
+    const dialogContent = document.getElementById("dialogContent");
+    const closeBtn = document.getElementById("closeBtn");
+
+
+    /* Modal content map (C and R include four images each; C no longer uses me.jpg) */
+    const letters = {
+      "A": {
+        heading: "AI & Projects",
+        content: `<p><strong>As a student in Computer Science and Engineering with AI, I am fascinated by the endless possibilities it offers. I am still a beginner but I am trying to explore the endless rabbitholes it could take us on. But, fyi, I'm strictly against AI in art.</strong></p>
+                  <p><a href="${LINKS.github}" target="_blank" rel="noopener">Do check out a few projects I have made on My GitHub</a></p>`
+      },
+
+      "G": {
+        heading: "About Ganga",
+        content: `<div class="g-grid">
+                    <img src="images/me.jpg" alt="My photo">
+                    <div>
+                      <p><strong>I love creating (not the Frankenstein kind). Creation feeds the curiosity worm in my mind. My spirit for exploration transcends time and space. You can find me up at 2 AM, trying to find out what actually is Cicada 3301 or with my head buried in a thriller. I love talking to new people, and find humans to be the most interesting creatures of all time (puppies are a close second).</strong></p>
+                      <p><a href="${LINKS.instagram}" target="_blank" rel="noopener">Find me on Instagram</a></p>
+                    </div>
+                  </div>`
+      },
+
+      "C": {
+        heading: "Catalyst IEDC — Photo Highlights",
+        content: `<p><strong>Working as Chief Creative Officer for Catalyst IEDC, I have learned more than any classroom with 4 walls could teach me. The most chill place that rolls out exciting projects, and I am so grateful to have been part of a few.</strong></p>
+                  <div class="modal-grid" aria-hidden="false">
+                    <img src="images/c1.jpeg" alt="Catalyst photo 1">
+                    <img src="images/c2.jpeg" alt="Catalyst photo 2">
+                    <img src="images/c3.jpg" alt="Catalyst photo 3">
+                    <img src="images/c4.jpg" alt="Catalyst photo 4">
+                  </div>
+                  <p style="margin-top:10px;"><a href="${LINKS.catalyst}" target="_blank" rel="noopener">Catalyst Instagram</a></p>`
+      },
+
+      "D": {
+        heading: "Data Structures",
+        content: `<p><strong>I enjoy solving algorithmic problems and designing efficient data structures.</strong></p>
+                  <p><a href="${LINKS.leetcode}" target="_blank" rel="noopener">My LeetCode</a></p>`
+      },
+
+      "I": {
+        heading: "Instagram",
+        content: `<p><strong>This is where I share my main character moments. Feel free to follow along!</strong></p>
+                  <p><a href="${LINKS.instagram}" target="_blank" rel="noopener">My Instagram</a></p>`
+      },
+
+      "L": {
+        heading: "LinkedIn",
+        content: `<p><strong>Catch up on my sometimes-professional updates and musings.</strong></p>
+                  <p><a href="${LINKS.linkedin}" target="_blank" rel="noopener">My LinkedIn</a></p>`
+      },
+
+      "F": {
+        heading: "Films",
+        content: `<p><strong>I love basing my personality off of a certain character from a movie I'm not supposed to talk about. But, seriously, movies are absolute magic for me.</strong></p>
+                  <div class="modal-grid" aria-hidden="false">
+                    <img src="images/f1.jpg" alt="Film photo 1">
+                    <img src="images/f2.jpg" alt="Film photo 2">
+                    <img src="images/f3.jpg" alt="Film photo 3">
+                    <img src="images/f4.jpg" alt="Film photo 4">
+                  </div>
+                <p><a href="${LINKS.letterboxd}" target="_blank" rel="noopener">My Letterboxd</a></p>`
+      },
+
+      "W": {
+        heading: "Writing",
+        content: `<p><strong>I am a published author. I mostly write thrillers.I'm currently trying to set up a substack to share a few of my writings with yall.</strong></p>
+                  <p><strong>
+                <a href="${LINKS.substack}" target="_blank" rel="noopener">My Substack</a></strong></p>`
+      },
+
+      "R": {
+        heading: "Books & Favorite Reads",
+        content: `<p><strong>Reading adds dimensions to the projects I make and I love the smell of the pages. With that being said, I also am a bit of an article-junkie. Hell, I'd read the back of a shampoo bottle.</strong></p>
+                  <div class="modal-grid">
+                    <img src="images/r1.jpg" alt="Reading photo 1">
+                    <img src="images/r2.jpg" alt="Reading photo 2">
+                    <img src="images/r3.jpg" alt="Reading photo 3">
+                    <img src="images/r4.jpg" alt="Reading photo 4">
+                  </div>`
+      }
+    };
+
+    /* Clickable letters open modal; set editable heading text */
+    document.querySelectorAll(".clickable").forEach(cell => {
+      const ch = cell.textContent.trim();
+
+      cell.addEventListener("click", () => {
+        if (letters[ch]) {
+          dialogTitle.textContent = letters[ch].heading || ch;
+          dialogContent.innerHTML = letters[ch].content || '';
+        } else {
+          dialogTitle.textContent = ch;
+          dialogContent.innerHTML = '<p>Content coming soon.</p>';
+        }
+
+        overlay.style.display = "flex";
+        overlay.setAttribute('aria-hidden','false');
+
+        // move focus to the dialog title so it's quick to edit if desired
+        // (commented out to avoid unexpected jumps; uncomment if you want autofocus)
+        // dialogTitle.focus();
+      });
+    });
+
+    closeBtn.addEventListener("click", () => {
+      overlay.style.display = "none";
+      overlay.setAttribute('aria-hidden','true');
+    });
+
+    overlay.addEventListener("click", e => {
+      if (e.target === overlay) {
+        overlay.style.display = "none";
+        overlay.setAttribute('aria-hidden','true');
+      }
+    });
+
+    // close on Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.style.display === 'flex') {
+        overlay.style.display = 'none';
+        overlay.setAttribute('aria-hidden','true');
+      }
+    });
+
+  </script>
+
+</body>
+</html>
